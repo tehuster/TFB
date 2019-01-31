@@ -1,14 +1,14 @@
 // gebruik de serialport package
 const SerialPort = require('serialport');
 const dgram = require('dgram');
-const ip = '192.168.2.40'; // IP met .255 op einde voor multicast address.
+const ip = '145.49.11.70'; // IP met .255 op einde voor multicast address.
 const port = 8008;
 const udpServer = dgram.createSocket('udp4');
 
 //Test
 //udpServer.send('test', port, ip);
 
-let serialport = new SerialPort("COM11", { baudRate : 57600}, (err) => {
+let serialport = new SerialPort("COM3", { baudRate : 57600}, (err) => {
     if(err)
     {
         console.error("Error setting up serialport", err.message);

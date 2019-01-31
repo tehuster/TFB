@@ -39,7 +39,7 @@ public class moveSphere : MonoBehaviour
 
         if (velocity.x > velocityTresshold || velocity.x < (velocityTresshold * -1))
         {
-            Debug.Log("VelocityX");
+        //    Debug.Log("VelocityX");
             POZYX.x = oldVelX;
         }
         else
@@ -52,7 +52,7 @@ public class moveSphere : MonoBehaviour
         // }
         if (velocity.z > velocityTresshold || velocity.z < (velocityTresshold * -1))
         {
-            Debug.Log("VelocityZ");
+         //   Debug.Log("VelocityZ");
             POZYX.z = oldVelZ;
         }
         else

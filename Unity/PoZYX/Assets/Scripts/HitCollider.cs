@@ -7,15 +7,17 @@ public class HitCollider : MonoBehaviour {
     public UDPSend UDPSend;
     public MotorSpeed MotorSpeed;
 
+    public FloatVariable Intensity;
+    public int MotorIndex;
+
     private void Awake() {
         MotorSpeed = UDPSend.motorSpeed;
     }
 	 void OnTriggerStay(Collider collider)
     {
-            Debug.Log("Entering");
-		    for(int i=0; i<8; i++){
-                MotorSpeed.MotorsSpeed[i] = 50;
-            }    
+          
+            MotorSpeed.MotorsSpeed[MotorIndex] = (int) Intensity.Value;
+         
             UDPSend.sendMotorInfo();
     }
 

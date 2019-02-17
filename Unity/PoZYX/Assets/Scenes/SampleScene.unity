@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 107814396}
   - component: {fileID: 107814395}
   m_Layer: 5
-  m_Name: Radial_motorOutput_2
+  m_Name: Radial_motorOutput_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -833,10 +833,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 1
   loadingBar: {fileID: 819283006}
   textPercent: {fileID: 733579090}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 11
   enableSpecified: 0
@@ -2670,7 +2672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 1
 --- !u!1 &287596801
@@ -4439,7 +4441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 2
 --- !u!1 &463276712
@@ -5309,7 +5311,6 @@ GameObject:
   - component: {fileID: 588859035}
   - component: {fileID: 588859034}
   - component: {fileID: 588859033}
-  - component: {fileID: 588859037}
   - component: {fileID: 588859031}
   m_Layer: 0
   m_Name: User
@@ -5402,7 +5403,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588859030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.1, y: 0, z: 16}
+  m_LocalPosition: {x: 13.6, y: 0, z: 26.2}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 214502791}
@@ -5411,22 +5412,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &588859037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588859030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d44c822a2613874b8bdbd1b346253c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
-  Intensity: {fileID: 0}
-  MotorIndex: 0
 --- !u!1 &613100138
 GameObject:
   m_ObjectHideFlags: 0
@@ -5441,7 +5426,7 @@ GameObject:
   - component: {fileID: 613100141}
   - component: {fileID: 613100140}
   m_Layer: 5
-  m_Name: Radial_motorOutput_4
+  m_Name: Radial_motorOutput_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5514,10 +5499,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 3
   loadingBar: {fileID: 670631351}
   textPercent: {fileID: 329214964}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 31
   enableSpecified: 0
@@ -6127,7 +6114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 4
 --- !u!1 &729625753
@@ -9871,7 +9858,7 @@ GameObject:
   - component: {fileID: 1289172367}
   - component: {fileID: 1289172366}
   m_Layer: 5
-  m_Name: Radial_motorOutput_5
+  m_Name: Radial_motorOutput_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9944,10 +9931,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 4
   loadingBar: {fileID: 1869590834}
   textPercent: {fileID: 1954271730}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 33
   enableSpecified: 0
@@ -10331,9 +10320,8 @@ GameObject:
   - component: {fileID: 1340099338}
   - component: {fileID: 1340099337}
   - component: {fileID: 1340099336}
-  - component: {fileID: 1340099340}
   m_Layer: 5
-  m_Name: Radial_motorOutput_1
+  m_Name: Radial_motorOutput_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10406,12 +10394,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 0
   loadingBar: {fileID: 766279621}
   textPercent: {fileID: 1165138641}
-  isOn: 0
-  restart: 0
+  isOn: 1
+  restart: 1
   currentPercent: 0
-  speed: 33
+  speed: 12
   enableSpecified: 0
   enableLoop: 0
   specifiedValue: 0
@@ -10423,20 +10413,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340099334}
   m_CullTransparentMesh: 0
---- !u!114 &1340099340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340099334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8759cc0fc04b90548b9b3a2e5dba2aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
-  MotorIndex: 0
 --- !u!1 &1353254458
 GameObject:
   m_ObjectHideFlags: 0
@@ -10838,7 +10814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 3
 --- !u!1 &1391964940
@@ -12604,7 +12580,7 @@ GameObject:
   - component: {fileID: 1754436303}
   - component: {fileID: 1754436302}
   m_Layer: 5
-  m_Name: Radial_motorOutput_3
+  m_Name: Radial_motorOutput_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12677,10 +12653,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 2
   loadingBar: {fileID: 957761008}
   textPercent: {fileID: 224060536}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 20
   enableSpecified: 0
@@ -14637,7 +14615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 7
 --- !u!1 &2018312971
@@ -14730,7 +14708,7 @@ GameObject:
   - component: {fileID: 2022062253}
   - component: {fileID: 2022062252}
   m_Layer: 5
-  m_Name: Radial_motorOutput_8
+  m_Name: Radial_motorOutput_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14803,10 +14781,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 7
   loadingBar: {fileID: 1067721817}
   textPercent: {fileID: 668374168}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 22
   enableSpecified: 0
@@ -15053,7 +15033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 0
 --- !u!1 &2096179870
@@ -15161,7 +15141,7 @@ GameObject:
   - component: {fileID: 2104617150}
   - component: {fileID: 2104617149}
   m_Layer: 5
-  m_Name: Radial_motorOutput_6
+  m_Name: Radial_motorOutput_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15234,10 +15214,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 5
   loadingBar: {fileID: 729625754}
   textPercent: {fileID: 1616765519}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 18
   enableSpecified: 0
@@ -15361,7 +15343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 6
 --- !u!1 &2118787717
@@ -15474,7 +15456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UDPSend: {fileID: 91110698}
-  MotorSpeed: {fileID: 0}
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
   Intensity: {fileID: 11400000, guid: 76db4c5f8c5cdd64dae4d4c7a64d11f1, type: 2}
   MotorIndex: 5
 --- !u!1 &2119498954
@@ -15512,7 +15494,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!136 &2119498956
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15676,7 +15658,7 @@ GameObject:
   - component: {fileID: 2146381398}
   - component: {fileID: 2146381397}
   m_Layer: 5
-  m_Name: Radial_motorOutput_7
+  m_Name: Radial_motorOutput_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15749,10 +15731,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MotorSpeed: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
+  MotorIndex: 6
   loadingBar: {fileID: 1008990626}
   textPercent: {fileID: 1637160672}
-  isOn: 1
-  restart: 1
+  isOn: 0
+  restart: 0
   currentPercent: 0
   speed: 6
   enableSpecified: 0

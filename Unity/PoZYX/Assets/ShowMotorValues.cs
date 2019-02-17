@@ -10,11 +10,13 @@ public class ShowMotorValues : MonoBehaviour
    public int MotorIndex;
    private float motorOutput;
    private void Awake() {
-       motorOutput = gameObject.GetComponent<ProgressBar>().currentPercent;
+       motorOutput = GetComponent<ProgressBar>().currentPercent;
+       Debug.Log(motorOutput);
    }
     
     void Update()
     {
-        motorOutput = MotorSpeed.MotorsSpeed[MotorIndex];
+        //motorOutput = MotorSpeed.MotorsSpeed[MotorIndex];
+        Debug.Log(motorOutput);
     }
 }

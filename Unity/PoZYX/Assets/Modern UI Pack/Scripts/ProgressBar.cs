@@ -2,10 +2,13 @@
 using UnityEngine.UI;
 using TMPro;
 
-namespace Michsky.UI.ModernUIPack
-{
+// namespace Michsky.UI.ModernUIPack
+// {
     public class ProgressBar : MonoBehaviour
     {
+        public MotorSpeed MotorSpeed;
+        public int MotorIndex;
+
         [Header("OBJECTS")]
         public Transform loadingBar;
         public Transform textPercent;
@@ -45,8 +48,11 @@ namespace Michsky.UI.ModernUIPack
             {
                 currentPercent = 0;
             }
+
+            currentPercent = MotorSpeed.MotorsSpeed[MotorIndex];
+            
             loadingBar.GetComponent<Image>().fillAmount = currentPercent / 100;
             textPercent.GetComponent<TextMeshProUGUI>().text = ((int)currentPercent).ToString("F0") + "%";
         }
     }
-}
+//}

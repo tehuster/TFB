@@ -21,7 +21,7 @@ public class ParseDataToString : MonoBehaviour {
             dataString += Motor + ",";
         }	       
 		dataString += ";";
-		Debug.Log(dataString);
+//		Debug.Log(dataString);
 		return dataString;
 	}
 }

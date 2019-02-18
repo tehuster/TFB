@@ -20,14 +20,29 @@ public class moveSphere : MonoBehaviour
 
     private float oldVelZ = 0;
     private float oldVelX = 0;
-    // Use this for initialization
+
+    private bool Movement_Toggle;
+ 
     void Start()
     {
         oldPos = transform.position;
     }
-
-    // Update is called once per frame
+ 
     void Update()
+    {
+        if (Movement_Toggle)
+        {
+            moveUser();
+        }
+    }
+    
+    public void toggleMovement(bool toggle)
+    {
+        Debug.Log(toggle);
+        Movement_Toggle = toggle;
+    }
+
+    private void moveUser()
     {
         Vector3 newPos = new Vector3(POZYX.x, POZYX.y, POZYX.z);
 
@@ -39,7 +54,7 @@ public class moveSphere : MonoBehaviour
 
         if (velocity.x > velocityTresshold || velocity.x < (velocityTresshold * -1))
         {
-        //    Debug.Log("VelocityX");
+            //    Debug.Log("VelocityX");
             POZYX.x = oldVelX;
         }
         else
@@ -52,7 +67,7 @@ public class moveSphere : MonoBehaviour
         // }
         if (velocity.z > velocityTresshold || velocity.z < (velocityTresshold * -1))
         {
-         //   Debug.Log("VelocityZ");
+            //   Debug.Log("VelocityZ");
             POZYX.z = oldVelZ;
         }
         else

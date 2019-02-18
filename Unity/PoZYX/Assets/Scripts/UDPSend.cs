@@ -15,26 +15,18 @@ public class UDPSend : MonoBehaviour
     public string IP;  // define in init
     public int port;  // define in init
 
-    // "connection" things
     IPEndPoint remoteEndPoint;
     UdpClient client;  
     // gui
     string strMessage = "";
 
-    // call it from shell (as program)
+    private bool MotorToggle;
+
     private static void Main()
     {
         UDPSend sendObj = new UDPSend();
         sendObj.init();
-
-        // testing via console
-        // sendObj.inputFromConsole();
-
-        // as server sending endless
-       // sendObj.sendEndless(" endless infos \n");
-
     }
-    // start from unity3d
     public void Start()
     {
         init();
@@ -49,14 +41,9 @@ public class UDPSend : MonoBehaviour
 
     public void turnOffBelt(){
             try
-            {
-               
-                // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
+            {   
                 byte[] data = Encoding.UTF8.GetBytes("0000000000000000;");
-
-                // Den message zum Remote-Client senden.
-                client.Send(data, data.Length, remoteEndPoint);
-                //}
+                client.Send(data, data.Length, remoteEndPoint);               
             }
             catch (Exception err)
             {
@@ -65,26 +52,30 @@ public class UDPSend : MonoBehaviour
     }
     public void sendMotorInfo()
     {
-        string motorInfo = "";
-        for (int i = 0; i < 8; i++)
-        {
-            motorInfo += motorSpeed.MotorsSpeed[i].ToString("D2");
-        }
-        motorInfo += ";";
-        try
-        {
-           
-            // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
-            byte[] data = Encoding.UTF8.GetBytes(motorInfo);
+        if(MotorToggle){
+            string motorInfo = "";
+            for (int i = 0; i < 8; i++)
+            {
+                motorInfo += motorSpeed.MotorsSpeed[i].ToString("D2");
+            }
+            motorInfo += ";";
+            try
+            {
+                byte[] data = Encoding.UTF8.GetBytes(motorInfo);
 
-            // Den message zum Remote-Client senden.
-            client.Send(data, data.Length, remoteEndPoint);
-            //}
-        }
-        catch (Exception err)
-        {
-            print(err.ToString());
+                client.Send(data, data.Length, remoteEndPoint);
+            }
+            catch (Exception err)
+            {
+                print(err.ToString());
+            }
+        }else{
+            turnOffBelt();
         }
     }
+
+    public void toggleMotors(bool toggle){
+        MotorToggle = toggle;
+    } 
 
 }

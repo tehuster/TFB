@@ -15,11 +15,22 @@ public class SensorDistanceIntensity : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float d = Vector3.Distance (User.transform.position, Target.transform.position);	
-		d = Mathf.Clamp(d, 0, 50);
-		distance.Value = Remap(d, 0, 50, 35, 0);
+		d = Mathf.Clamp(d, 0, 75);
+		distance.Value = Remap(d, 0, 75, 100, 0);
 	}
 
-	private float Remap (float value, float from1, float to1, float from2, float to2) {
-    	return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
-	}
+	 private float Remap (float from, int fromMin, int fromMax, int toMin,  int toMax)
+    {
+        var fromAbs  =  from - fromMin;
+        var fromMaxAbs = fromMax - fromMin;      
+       
+        var normal = fromAbs / fromMaxAbs;
+ 
+        var toMaxAbs = toMax - toMin;
+        var toAbs = toMaxAbs * normal;
+ 
+        var to = toAbs + toMin;
+       
+        return to;
+    }
 }

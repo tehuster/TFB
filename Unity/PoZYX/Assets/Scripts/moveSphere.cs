@@ -21,7 +21,7 @@ public class moveSphere : MonoBehaviour
     private float oldVelZ = 0;
     private float oldVelX = 0;
 
-    private bool Movement_Toggle;
+    private bool Movement_Toggle = true;
  
     void Start()
     {

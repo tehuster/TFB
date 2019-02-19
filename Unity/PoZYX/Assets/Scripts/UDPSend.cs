@@ -20,7 +20,7 @@ public class UDPSend : MonoBehaviour
     // gui
     string strMessage = "";
 
-    private bool MotorToggle;
+    private bool MotorToggle = true;
 
     private static void Main()
     {
@@ -53,12 +53,14 @@ public class UDPSend : MonoBehaviour
     public void sendMotorInfo()
     {
         if(MotorToggle){
+            Debug.Log("sending");
             string motorInfo = "";
             for (int i = 0; i < 8; i++)
             {
                 motorInfo += motorSpeed.MotorsSpeed[i].ToString("D2");
             }
             motorInfo += ";";
+            //Debug.Log(motorInfo);
             try
             {
                 byte[] data = Encoding.UTF8.GetBytes(motorInfo);
@@ -70,6 +72,7 @@ public class UDPSend : MonoBehaviour
                 print(err.ToString());
             }
         }else{
+            Debug.Log("turning off");
             turnOffBelt();
         }
     }

@@ -53,7 +53,6 @@ public class UDPSend : MonoBehaviour
     public void sendMotorInfo()
     {
         if(MotorToggle){
-            Debug.Log("sending");
             string motorInfo = "";
             for (int i = 0; i < 8; i++)
             {
@@ -72,7 +71,6 @@ public class UDPSend : MonoBehaviour
                 print(err.ToString());
             }
         }else{
-            Debug.Log("turning off");
             turnOffBelt();
         }
     }

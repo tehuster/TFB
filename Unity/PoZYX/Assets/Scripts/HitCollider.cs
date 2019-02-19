@@ -22,8 +22,7 @@ public class HitCollider : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider other) {
-             Debug.Log("Leaving");
-               for(int i=0; i<8; i++){
+            for(int i=0; i<8; i++){
                 MotorSpeed.MotorsSpeed[i] = 0;
             } 
             UDPSend.sendMotorInfo();

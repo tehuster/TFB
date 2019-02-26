@@ -1,7 +1,7 @@
 {
-  "name": "node-serialport",
+  "name": "serialport",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aannemende dat je node al ge�nstalleerd hebt: Eerst even 'npm install' draaien vanuit je console in deze directory om de 'serialport' package binnen te trekken.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "serialport": "^7.0.2"
-  }
+  },
+  "devDependencies": {}
 }

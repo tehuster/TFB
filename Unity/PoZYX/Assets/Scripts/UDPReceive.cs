@@ -4,9 +4,12 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Feature.Networking;
 
 public class UDPReceive : MonoBehaviour {
-	public StringVariable UDP_Message;
+	[SerializeField] private NetworkingDataModel networkData;
+
+	//public StringVariable UDP_Message;
 	// receiving Thread
 	Thread receiveThread;
 
@@ -14,8 +17,8 @@ public class UDPReceive : MonoBehaviour {
 	UdpClient client;
 
 	// public
-	public string IP;
-	public int port;
+	//public string IP;
+	//public int port;
 
 	// infos
 	public string lastReceivedUDPPacket = "";
@@ -54,7 +57,7 @@ public class UDPReceive : MonoBehaviour {
 	// init
 	private void init() {
 		// Status
-		Debug.Log("Receiving on " + IP + ":" + port);
+		Debug.Log("Receiving on " + networkData.IP + ":" + networkData.receivePort);
 
 		receiveThread = new Thread(
 			new ThreadStart(ReceiveData));
@@ -64,11 +67,11 @@ public class UDPReceive : MonoBehaviour {
 
 	// receive thread
 	private void ReceiveData() {
-		client = new UdpClient(port);
+		client = new UdpClient(networkData.receivePort);
 		while (true) {
 			try {
 				// Bytes empfangen.
-				IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, port);
+				IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, networkData.receivePort);
 				byte[] data = client.Receive(ref anyIP);
 
 				// Bytes mit der UTF8-Kodierung in das Textformat kodieren.
@@ -78,7 +81,7 @@ public class UDPReceive : MonoBehaviour {
 				//Debug.Log(">> " + text);
 
 				// latest UDPpacket
-				UDP_Message.Value = text;
+				networkData.dataString = text;
 
 				// ....
 				//allReceivedUDPPackets = allReceivedUDPPackets + text;

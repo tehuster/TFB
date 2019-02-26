@@ -16,6 +16,12 @@ namespace Feature.Room {
 
 		private void Start() {
 			EventManager.StartListening(RoomEventTypes.LOAD_ROOM, OnLoadRoom);
+
+			Invoke("SpawnRoom", 0.1f);
+		}
+
+		private void SpawnRoom() {
+			EventManager.TriggerEvent(RoomEventTypes.LOAD_ROOM);
 		}
 
 		private void OnDestroy() {

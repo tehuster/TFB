@@ -8,14 +8,16 @@ namespace Feature.Networking {
 	/// </summary>
 	[CreateAssetMenu(fileName = "Networking Data Model", menuName = "FTB/Networking/New Networking Data Model")]
 	public class NetworkingDataModel : ScriptableObject {
+		[Header("IP Address")]
+		public string IP;
+
 		[Header("Receiving Data Settings")]
-		public string receiveIP;
 		public int receivePort;
 
 		[Header("Sending Data Settings")]
-		public string sendIP;
 		public int sendPort;
-		[Space]
+
+		[Header("POZYX Data String")]
 		public string dataString;
 	}
 }

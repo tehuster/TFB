@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8256b2ed81b73d49b7ae50c39fa50c7, type: 3}
   m_Name: Networking Data Model
   m_EditorClassIdentifier: 
-  receiveIP: 192.168.1.249
+  IP: 192.168.43.58
   receivePort: 8008
-  sendIP: 192.168.1.249
   sendPort: 8006
   dataString: 1300,1000,00,45

@@ -7,11 +7,13 @@ using Core;
 using Feature.Networking;
 
 public class UDPSend : MonoBehaviour {
+	[SerializeField] private NetworkingDataModel networkData;
+
 	public MotorSpeed motorSpeed;
 	private static int localPort;
 	// prefs
-	public string IP;  // define in init
-	public int port;  // define in init
+	//public string IP;  // define in init
+	//public int port;  // define in init
 
 	IPEndPoint remoteEndPoint;
 	UdpClient client;
@@ -25,8 +27,6 @@ public class UDPSend : MonoBehaviour {
 		sendObj.init();
 	}
 
-
-
 	private void Start() {
 		init();
 
@@ -38,9 +38,9 @@ public class UDPSend : MonoBehaviour {
 	}
 
 	public void init() {
-		remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), port);
+		remoteEndPoint = new IPEndPoint(IPAddress.Parse(networkData.IP), networkData.sendPort);
 		client = new UdpClient();
-		Debug.Log("Sending to " + IP + ":" + port);
+		Debug.Log("Sending to " + networkData.IP + ":" + networkData.sendPort);
 	}
 
 	public void turnOffBelt() {

@@ -13,8 +13,9 @@ namespace Feature.CameraTopDown {
 		[SerializeField] private Camera cam;
 		[Header("Move Settings")]
 		[SerializeField] private float dampSpeed = 0.5f;
+		[Range(-50,50)]
+		[SerializeField] private float zoomOffset;
 
-        List<Vector3> anchorPositions = new List<Vector3>();
 		private Vector3 dampVelocity = new Vector3(1f, 1f, 1f);
 		private Vector3 newPosition;
 		private float anchorDistance = 75f;
@@ -42,11 +43,13 @@ namespace Feature.CameraTopDown {
 		}
 
 		private void ZoomCamera() {
-			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, anchorDistance / 2f, Time.deltaTime);
+			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, (anchorDistance / 2f) + zoomOffset, Time.deltaTime);
 		}
 
 		private void OnLoadedNewRoom(object[] data) {
 			Transform parent = (Transform)data[0];
+
+			List<Vector3> anchorPositions = new List<Vector3>();
 
 			foreach (Transform child in parent.GetComponentInChildren<Transform>())
 				anchorPositions.Add(child.position);

@@ -15131,6 +15131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sessionData: {fileID: 11400000, guid: bd7dfe539c7384cefa630a98c890fdd8, type: 2}
   parseDataToString: {fileID: 1868972804}
+  pozyxData: {fileID: 11400000, guid: 7676bcb5d6aa54d489f0de4ac6beb101, type: 2}
+  motorData: {fileID: 11400000, guid: a8225c734cf157a4ea7c5ed7ebdba5b8, type: 2}
 --- !u!114 &1868972804
 MonoBehaviour:
   m_ObjectHideFlags: 0

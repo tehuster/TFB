@@ -24,3 +24,39 @@ public class ParseDataToString : MonoBehaviour {
         return dataString;
     }
 }
+
+//{
+//    "session_info": {
+//        "id": "5048fde7c4aa917cbd4d8e13",
+//        "websiteId": "50295e80e4b096e761d7e4d3",
+//        "enabled": true,
+//        "starred": false,
+//    },
+
+//    "user_data": [
+//        {
+//            "timestamp": "5048fde7c4aa917cbd4d8e13",
+//            "pos": {
+//                "x": 89,
+//                "y": 37,
+//                "z": 94            
+//            },    
+//            "motor_intensity": [
+//                10, 10, 10, 10, 10, 10, 10, 10                          
+//            ],   
+//            "distance": 23,
+//        },
+//        {
+//            "timestamp": "5048fde7c4aa917cbd4d8e13",
+//            "pos": {
+//                "x": 89,
+//                "y": 37,
+//                "z": 94            
+//            },    
+//            "motor_intensity": [
+//                10, 10, 10, 10, 10, 10, 10, 10                          
+//            ],   
+//            "distance": 23,
+//        }
+//    ]  
+//}

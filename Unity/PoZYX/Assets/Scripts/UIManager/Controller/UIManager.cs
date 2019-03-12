@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Core;
+using UnityEngine.UI;
 
 namespace Feature.UI {
 	/// <summary>
@@ -8,12 +9,25 @@ namespace Feature.UI {
 	/// Author: Thomas Jonckheere
 	/// </summary>
 	public class UIManager : MonoBehaviour {
-        public void TurnCamera() {
-            EventManager.TriggerEvent(CameraTopDown.CameraTopDownEventTypes.TURN_CAMERA);
-        }
+		[SerializeField] private Button startSessionButton;
+		[SerializeField] private Button turnCameraButton;
 
-        public void StartSession() {
+		private void Start() {
+			SetupButtonListeners();
+		}
+
+		private void SetupButtonListeners() {
+			startSessionButton.onClick.AddListener(OnStartSessionClicked);
+			turnCameraButton.onClick.AddListener(OnTurnCameraClicked);
+		}
+
+		private void OnStartSessionClicked() {
+			Debug.Log("New Session started!");
             EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM);
         }
-    }
+
+		private void OnTurnCameraClicked() {
+			EventManager.TriggerEvent(CameraTopDown.CameraTopDownEventTypes.TURN_CAMERA);
+		}
+	}
 }

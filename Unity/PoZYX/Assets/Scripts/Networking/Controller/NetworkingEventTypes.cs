@@ -6,5 +6,10 @@
 		/// Arguments: -
 		/// </summary>
 		public const string SEND_DATA = "SEND_DATA";
+
+        /// <summary>
+        /// Arguments: (Bool)Motors State
+        /// </summary>
+        public const string TOGGLE_MOTORS = "TOGGLE_MOTORS";
 	}
 }

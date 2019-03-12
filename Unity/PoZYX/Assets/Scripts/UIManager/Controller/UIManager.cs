@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Core;
-using Feature.CameraTopDown;
 
 namespace Feature.UI {
 	/// <summary>
@@ -10,7 +9,11 @@ namespace Feature.UI {
 	/// </summary>
 	public class UIManager : MonoBehaviour {
         public void TurnCamera() {
-            EventManager.TriggerEvent(CameraTopDownEventTypes.TURN_CAMERA);
+            EventManager.TriggerEvent(CameraTopDown.CameraTopDownEventTypes.TURN_CAMERA);
+        }
+
+        public void StartSession() {
+            EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM);
         }
     }
 }

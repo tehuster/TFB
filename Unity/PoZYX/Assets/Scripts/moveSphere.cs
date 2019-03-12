@@ -77,7 +77,7 @@ public class moveSphere : MonoBehaviour
 
         newPos = new Vector3(POZYX.x, POZYX.y, POZYX.z);
 
-        transform.position = Vector3.Lerp(transform.position, newPos, lerpValue);
+        transform.position = Vector3.Lerp(transform.position, newPos, lerpValue * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, POZYX.yaw, 0);
 
         oldPos = transform.position;

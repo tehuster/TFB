@@ -20,7 +20,7 @@ public class UDPSend : MonoBehaviour {
 	// gui
 	string strMessage = "";
 
-	private bool MotorToggle = true;
+	//private bool MotorToggle = true;
 
 	private static void Main() {
 		UDPSend sendObj = new UDPSend();
@@ -31,10 +31,12 @@ public class UDPSend : MonoBehaviour {
 		init();
 
 		EventManager.StartListening(NetworkingEventTypes.SEND_DATA, SendMotorInfo);
+        EventManager.StartListening(NetworkingEventTypes.TOGGLE_MOTORS, ToggleMotors);
 	}
 
 	private void OnDestroy() {
 		EventManager.StopListening(NetworkingEventTypes.SEND_DATA, SendMotorInfo);
+        EventManager.StopListening(NetworkingEventTypes.TOGGLE_MOTORS, ToggleMotors);
 	}
 
 	public void init() {
@@ -43,7 +45,10 @@ public class UDPSend : MonoBehaviour {
 		Debug.Log("Sending to " + networkData.IP + ":" + networkData.sendPort);
 	}
 
-	public void turnOffBelt() {
+	public void TurnOffBelt() {
+        if (motorSpeed.MotorState)
+            motorSpeed.MotorState = false;
+
 		try {
 			byte[] data = Encoding.UTF8.GetBytes("0000000000000000;");
 			client.Send(data, data.Length, remoteEndPoint);
@@ -53,7 +58,7 @@ public class UDPSend : MonoBehaviour {
 	}
 
 	private void SendMotorInfo(object[] arg0 = null) {
-		if (MotorToggle) {
+        if (motorSpeed.MotorState) {
 			string motorInfo = "";
 			for (int i = 0; i < 8; i++) {
 				motorInfo += motorSpeed.MotorsSpeed[i].ToString("D2");
@@ -68,11 +73,16 @@ public class UDPSend : MonoBehaviour {
 				print(err.ToString());
 			}
 		} else {
-			turnOffBelt();
+            TurnOffBelt();
 		}
 	}
 
-	public void toggleMotors(bool toggle) {
-		MotorToggle = toggle;
+	private void ToggleMotors(object[] data) {
+        if (data[0] == null) {
+            Debug.LogWarning("Missing argument!");
+            return;
+        }
+        
+        motorSpeed.MotorState = (bool)data[0];
 	}
 }

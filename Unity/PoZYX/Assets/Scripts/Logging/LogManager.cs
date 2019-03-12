@@ -1,56 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-//Normal using statements here
-using System;
+﻿using UnityEngine;
 using System.IO;
+using Feature.Session;
+using Core;
+using Feature.Room;
 
-public class LogManager : MonoBehaviour
-{
+public class LogManager : MonoBehaviour {
+    [SerializeField] private SessionDataModel sessionData;
+    [SerializeField] private ParseDataToString parseDataToString;
+    private StreamWriter SW;
 
-    StreamWriter SW;
-	ParseDataToString ParseDataToString;
+    private void Start() {
+        EventManager.StartListening(RoomEventTypes.LOADED_NEW_ROOM, OnRoomHasLoaded);
+    }
+    private void OnDestroy() {
+        EventManager.StopListening(RoomEventTypes.LOADED_NEW_ROOM, OnRoomHasLoaded);
+    }
 
-	private void Awake() {
-		ParseDataToString = GetComponent<ParseDataToString>();
-	}
-    private void Start()
-    {
-        string path = "USER_LOGS/test.txt";
+    private void OnRoomHasLoaded(object[] data) {
+        string path = "USER_LOGS/" + sessionData.Name + ".txt";
         CreateFile(path);
-		InitStreamWriter(path); //Don't forget to close;      
+        InitStreamWriter(path);
         WriteLineToFile("Started");
-		InvokeRepeating("LogData", 0f, 0.04f);
-    }
- 
-    
-
-    void LogData()
-    {	
-		WriteLineToFile(ParseDataToString.GetCurrentDataString());
+        InvokeRepeating("LogData", 0f, 0.04f);
     }
 
-	void CreateFile(string fileName){
-		//Add timestamp
-		//Unique ID
-		//Identifier
-		//Location
-		File.Create(fileName).Dispose();
-	}
+    private void LogData() {
+        WriteLineToFile(parseDataToString.GetCurrentDataString());
+    }
 
-	void InitStreamWriter(string fileName){
-		//SW.AutoFlush = true;
-		SW = new StreamWriter(fileName, true);		
-       
-	}
+    private void CreateFile(string fileName) {
+        //Add timestamp
+        //Unique ID
+        //Identifier
+        //Location
+        File.Create(fileName).Dispose();
+    }
 
-	void WriteLineToFile(string Line){
-		SW.WriteLine(Line);
-		SW.Flush();
-	}
+    private void InitStreamWriter(string fileName) {
+        //SW.AutoFlush = true;
+        SW = new StreamWriter(fileName, true);
 
-    void OnApplicationExit()
-    {
+    }
+
+    private void WriteLineToFile(string Line) {
+        SW.WriteLine(Line);
+        SW.Flush();
+    }
+
+    private void OnApplicationExit() {
         //Remember to close your StreamWriter!
         SW.Close();
     }

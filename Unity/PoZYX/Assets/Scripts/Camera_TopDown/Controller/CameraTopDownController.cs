@@ -19,6 +19,7 @@ namespace Feature.CameraTopDown {
 		private Vector3 dampVelocity = new Vector3(1f, 1f, 1f);
 		private Vector3 newPosition;
 		private float anchorDistance = 75f;
+        private bool roomLoaded = false;
 
 		private void Start() {
 			newPosition = transform.position;
@@ -33,6 +34,9 @@ namespace Feature.CameraTopDown {
 		}
 
 		private void LateUpdate() {
+            if (!roomLoaded)
+                return;
+
 			MoveCamera();
 			ZoomCamera();
 		}
@@ -47,7 +51,8 @@ namespace Feature.CameraTopDown {
 		}
 
 		private void OnLoadedNewRoom(object[] data) {
-			Transform parent = (Transform)data[0];
+            roomLoaded = true;
+            Transform parent = (Transform)data[0];
 
 			List<Vector3> anchorPositions = new List<Vector3>();
 

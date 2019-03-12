@@ -9,4 +9,5 @@ public class MotorSpeed : ScriptableObject
 #endif
 
     public int[] MotorsSpeed;
+    public bool MotorState = false;
 }

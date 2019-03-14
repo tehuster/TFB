@@ -3,7 +3,6 @@ using System.IO;
 using UnityEngine;
 using Feature.Session;
 using Core;
-using Feature.Room;
 using System.Collections;
 
 public class LogManager : MonoBehaviour {
@@ -15,50 +14,60 @@ public class LogManager : MonoBehaviour {
 
 	private StreamWriter SW;
 	private Coroutine logUserDataCoroutine;
+    private bool isLogging;
 
 	private void Start() {
-		EventManager.StartListening(RoomEventTypes.LOAD_ROOM, OnSessionStarted);
+        EventManager.StartListening(SessionEventTypes.START, OnSessionStarted);
+        EventManager.StartListening(SessionEventTypes.STOP, OnSessionStopped);
 	}
 	private void OnDestroy() {
-		EventManager.StopListening(RoomEventTypes.LOAD_ROOM, OnSessionStarted);
+        EventManager.StopListening(SessionEventTypes.START, OnSessionStarted);
+        EventManager.StopListening(SessionEventTypes.STOP, OnSessionStopped);
 	}
 
 	private void OnSessionStarted(object[] data) {
-		// TEMP
-		sessionData.SessionID = GetUniqueID();
-		sessionData.Date = DateTime.Now.Day.ToString() + "/" + System.DateTime.Now.Month.ToString() + "/" + System.DateTime.Now.Year.ToString();
-		//
+        isLogging = true;
 
+        SetSessionID(data);
 		CreateLogFile();
 		LogSessionInfo();
 		logUserDataCoroutine = StartCoroutine(LogUserData());
 	}
 
+    private void OnSessionStopped(object[] arg0) {
+        SaveLogFile();
+    }
+
 	private void CreateLogFile() {
 		string path = Application.persistentDataPath + "/" + sessionData.Name + "_" + sessionData.SessionID + ".txt";
+
+        Debug.Log("Created a new file at: " + path);
 
 		File.Create(path).Dispose();
 		SW = new StreamWriter(path, true);
 	}
 
-	/// TEMP ///
-	private string GetUniqueID() {
-		string[] split = DateTime.Now.TimeOfDay.ToString().Split(new Char[] { ':', '.' });
-		string id = "";
+    private void SetSessionID(object[] data){
+        string[] split = DateTime.Now.TimeOfDay.ToString().Split(new Char[] { ':', '.' });
+        string id = "";
 
-		for (int i = 0; i < split.Length; i++)
-			id += split[i];
+        for (int i = 0; i < split.Length; i++)
+            id += split[i];
 
-		return id;
-	}
+        sessionData.Name = (string)data[0];
+        sessionData.Disability = (string)data[1];
+        sessionData.Scenario = (string)data[2];
+        sessionData.SessionID = id;
+        sessionData.Date = DateTime.Now.Day.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString();
+    }
 
 	private void LogSessionInfo() {
 		string dataString = "{" + SW.NewLine;
 		dataString += "\t\"session_info\": {" + SW.NewLine;
 		dataString += "\t\t\"id\": \"" + sessionData.SessionID + "\"," + SW.NewLine;
-		dataString += "\t\t\"enabled\": " + motorData.MotorState + "," + SW.NewLine;
-		dataString += "\t\t\"name\": \"" + sessionData.Name + "\"," + SW.NewLine;
-		dataString += "\t\t\"date\": \"" + sessionData.Date + "\"," + SW.NewLine;
+        dataString += "\t\t\"name\": \"" + sessionData.Name + "\"," + SW.NewLine;
+        dataString += "\t\t\"date\": \"" + sessionData.Date + "\"," + SW.NewLine;
+        dataString += "\t\t\"scenario\": " + sessionData.Scenario + "," + SW.NewLine;
 		dataString += "\t\t\"disability\": \"" + sessionData.Disability + "\"," + SW.NewLine;
 		dataString += "\t\t\"log_interval\": \"" + logIntervalTime + "\"," + SW.NewLine;
 		dataString += "\t\t\"websiteId\": \"" + "\"," + SW.NewLine;
@@ -106,6 +115,10 @@ public class LogManager : MonoBehaviour {
 	}
 
 	private void SaveLogFile() {
+        if (!isLogging)
+            return;
+        
+        isLogging = false;
 		StopCoroutine(logUserDataCoroutine);
 		WriteLineToFile("\t]" + SW.NewLine + "}");
 		SW.Close();

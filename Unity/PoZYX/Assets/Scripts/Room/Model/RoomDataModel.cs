@@ -10,6 +10,7 @@ namespace Feature.Room {
 	[CreateAssetMenu(fileName = "Room Data Model", menuName = "FTB/Room/New Room Data Model")]
 	public class RoomDataModel : ScriptableObject {
 		public Anchor[] anchors;
+        public Anchor[] targets;
 
 		[Serializable]
 		public struct Anchor {

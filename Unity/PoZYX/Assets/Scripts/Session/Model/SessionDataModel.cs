@@ -11,6 +11,7 @@ namespace Feature.Session {
 		[Header("Session Data")]
 		public string SessionID;
 		public string Name;
+        public string Scenario;
         public string Date;
         public string Disability;
     }

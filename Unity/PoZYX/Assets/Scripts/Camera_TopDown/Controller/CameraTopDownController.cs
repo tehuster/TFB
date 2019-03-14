@@ -26,11 +26,13 @@ namespace Feature.CameraTopDown {
 
 			EventManager.StartListening(RoomEventTypes.LOADED_NEW_ROOM, OnLoadedNewRoom);
             EventManager.StartListening(CameraTopDownEventTypes.TURN_CAMERA, TurnCamera);
+            EventManager.StartListening(SessionEventTypes.STOP, OnSessionStopped);
 		}
 
 		private void OnDestroy() {
 			EventManager.StopListening(RoomEventTypes.LOADED_NEW_ROOM, OnLoadedNewRoom);
             EventManager.StopListening(CameraTopDownEventTypes.TURN_CAMERA, TurnCamera);
+            EventManager.StopListening(SessionEventTypes.STOP, OnSessionStopped);
 		}
 
 		private void LateUpdate() {
@@ -67,6 +69,10 @@ namespace Feature.CameraTopDown {
 			newPosition = anchorBounds.center;
 			anchorDistance = (anchorBounds.size.x > anchorBounds.size.z) ? anchorBounds.size.x : anchorBounds.size.z;
 		}
+
+        private void OnSessionStopped(object[] arg0) {
+            roomLoaded = false;
+        }
 
         private void TurnCamera(object[] arg0) {
             transform.Rotate(new Vector3(0f, -90f, 0f), Space.World);

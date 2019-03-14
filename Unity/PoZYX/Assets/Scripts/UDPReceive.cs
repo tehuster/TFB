@@ -21,8 +21,8 @@ public class UDPReceive : MonoBehaviour {
 	//public int port;
 
 	// infos
-	public string lastReceivedUDPPacket = "";
-	public string allReceivedUDPPackets = ""; // clean up this from time to time!
+	//public string lastReceivedUDPPacket = "";
+	//public string allReceivedUDPPackets = ""; // clean up this from time to time!
 
 
 	// start from shell
@@ -95,8 +95,9 @@ public class UDPReceive : MonoBehaviour {
 	// getLatestUDPPacket
 	// cleans up the rest
 	public string getLatestUDPPacket() {
-		allReceivedUDPPackets = "";
-		return lastReceivedUDPPacket;
+		//allReceivedUDPPackets = "";
+		//return lastReceivedUDPPacket;
+        return "";
 	}
 
 	void OnDisable() {

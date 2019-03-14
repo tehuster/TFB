@@ -21,3 +21,8 @@ MonoBehaviour:
     y: 87.25
   - x: 160.18
     y: 72.88
+  targets:
+  - x: 60
+    y: 50
+  - x: 40
+    y: 17

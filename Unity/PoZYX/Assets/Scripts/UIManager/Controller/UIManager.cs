@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Core;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Feature.UI {
 	/// <summary>
@@ -10,7 +11,11 @@ namespace Feature.UI {
 	/// </summary>
 	public class UIManager : MonoBehaviour {
 		[SerializeField] private Button startSessionButton;
-		[SerializeField] private Button turnCameraButton;
+        [SerializeField] private Button stopSessionButton;
+        [SerializeField] private TMP_InputField sessionNameInput;
+        [SerializeField] private TMP_InputField sessionDisabilityInput;
+        [SerializeField] private TMP_Dropdown scenarioDropDown;
+        [SerializeField] private Button turnCameraButton;
 
 		private void Start() {
 			SetupButtonListeners();
@@ -18,12 +23,25 @@ namespace Feature.UI {
 
 		private void SetupButtonListeners() {
 			startSessionButton.onClick.AddListener(OnStartSessionClicked);
+            stopSessionButton.onClick.AddListener(OnStopSessionClicked);
 			turnCameraButton.onClick.AddListener(OnTurnCameraClicked);
 		}
 
 		private void OnStartSessionClicked() {
 			Debug.Log("New Session started!");
-            EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM);
+            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = false;
+            stopSessionButton.interactable = true;
+
+            EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM, scenarioDropDown.value);
+            EventManager.TriggerEvent(SessionEventTypes.START, sessionNameInput.text, sessionDisabilityInput.text, scenarioDropDown.options[scenarioDropDown.value].text);
+        }
+
+        private void OnStopSessionClicked() {
+            Debug.Log("Session stopped!");
+            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = true;
+            stopSessionButton.interactable = false;
+
+            EventManager.TriggerEvent(SessionEventTypes.STOP);
         }
 
 		private void OnTurnCameraClicked() {

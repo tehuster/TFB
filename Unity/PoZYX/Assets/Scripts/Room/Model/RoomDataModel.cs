@@ -6,6 +6,8 @@ namespace Feature.Room {
 	/// RoomDataModel.cs
 	/// <summary>
 	/// Author: Thomas Jonckheere
+	/// 
+	/// TODO: huidige objects saven en vector2 van de struct.
 	/// </summary>
 	[CreateAssetMenu(fileName = "Room Data Model", menuName = "FTB/Room/New Room Data Model")]
 	public class RoomDataModel : ScriptableObject {

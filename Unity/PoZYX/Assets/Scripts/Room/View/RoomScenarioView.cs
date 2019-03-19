@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Core;
 using TMPro;
-using System.Collections.Generic;
+using Feature.LoadingScreen;
 
 namespace Feature.Room {
     public class RoomScenarioView : MonoBehaviour {
@@ -27,6 +28,8 @@ namespace Feature.Room {
             for (int i = 0; i < roomNames.Count; i++) {
                 scenarioDropDown.options.Add(new TMP_Dropdown.OptionData(roomNames[i]));
             }
+
+			EventManager.TriggerEvent(LoadingScreenEventTypes.LOADED_ROOMS_DATA);
         }
 
         private void OnScenarioChanged(int id){

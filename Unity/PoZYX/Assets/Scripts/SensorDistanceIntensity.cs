@@ -5,15 +5,20 @@ using Feature.Room;
 
 public class SensorDistanceIntensity : MonoBehaviour {
     [SerializeField] private Transform user;
-
-    [SerializeField] private int maxDistance;
-    [SerializeField] private int maxIntensity;
+	[SerializeField] private FloatVariable distance;
+	[Space]
+	[Header("Motors Limitations")]
+	[SerializeField] private int maxDistance;
+	[Space]
+	[Range(0, 100)]
     [SerializeField] private int minIntensity;
-    public FloatVariable distance;
+	[Range(0, 100)]
+    [SerializeField] private int maxIntensity;
 
     private List<Transform> targets = new List<Transform>();
     private Transform currentTarget;
-    private Transform oldTarget;
+	private Transform oldTarget;
+	private float oldDistance = -1f;
 
     private void Start() {
         EventManager.StartListening(RoomEventTypes.DELETE_TARGETS, OnDeleteTargets);
@@ -26,7 +31,8 @@ public class SensorDistanceIntensity : MonoBehaviour {
     }
 
     private void OnDeleteTargets(object[] arg0) {
-        targets.RemoveRange(0, targets.Count);
+		oldDistance = -1f;
+        targets = new List<Transform>();
     }
 
     private void OnNewTarget(object[] data) {
@@ -34,7 +40,7 @@ public class SensorDistanceIntensity : MonoBehaviour {
     }
 
     private void Update() {
-        SetClosestTarget();
+		SetClosestTarget();
 
         if (currentTarget == null)
             return;
@@ -45,20 +51,20 @@ public class SensorDistanceIntensity : MonoBehaviour {
     }
 
     private void SetClosestTarget(){
-        float oldDistance = -1f;
-
         for (int i = 0; i < targets.Count; i++) {
             float d = Vector3.Distance(user.position, targets[i].transform.position);
 
-            if (oldDistance > d || oldDistance <= -1f) {
-                oldDistance = d;
-                oldTarget = targets[i];
+			if (d < oldDistance || oldDistance <= -1f) {
+				oldDistance = d;
+				currentTarget = targets[i];
+				if (currentTarget != oldTarget)
+					EventManager.TriggerEvent(RoomEventTypes.NEW_CLOSEST_TARGET, currentTarget);
 
-                if (oldTarget != currentTarget) {
-                    currentTarget = targets[i];
-                    EventManager.TriggerEvent(RoomEventTypes.NEW_CLOSEST_TARGET, currentTarget);
-                }
-            }
+				oldTarget = currentTarget;
+			}
+
+			if (targets[i] == currentTarget)
+				oldDistance = d;
         }
     }
 

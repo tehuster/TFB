@@ -45,7 +45,7 @@ public class UDPSend : MonoBehaviour {
 		Debug.Log("Sending to " + networkData.IP + ":" + networkData.sendPort);
 	}
 
-	public void TurnOffBelt() {
+	private void TurnOffBelt() {
         if (motorSpeed.MotorState)
             motorSpeed.MotorState = false;
 
@@ -78,10 +78,8 @@ public class UDPSend : MonoBehaviour {
 	}
 
 	private void ToggleMotors(object[] data) {
-        if (data[0] == null) {
-            Debug.LogWarning("Missing argument!");
+        if (data[0] == null)
             return;
-        }
         
         motorSpeed.MotorState = (bool)data[0];
 	}

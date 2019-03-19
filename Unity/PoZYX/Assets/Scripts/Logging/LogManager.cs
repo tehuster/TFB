@@ -4,6 +4,7 @@ using UnityEngine;
 using Feature.Session;
 using Core;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LogManager : MonoBehaviour {
 	[SerializeField] private SessionDataModel sessionData;
@@ -15,18 +16,22 @@ public class LogManager : MonoBehaviour {
 	private StreamWriter SW;
 	private Coroutine logUserDataCoroutine;
     private bool isLogging;
+    private Dictionary<string, string> comments = new Dictionary<string, string>();
 
 	private void Start() {
         EventManager.StartListening(SessionEventTypes.START, OnSessionStarted);
         EventManager.StartListening(SessionEventTypes.STOP, OnSessionStopped);
+        EventManager.StartListening(SessionEventTypes.ADD_COMMENT, OnAddComment);
 	}
 	private void OnDestroy() {
         EventManager.StopListening(SessionEventTypes.START, OnSessionStarted);
         EventManager.StopListening(SessionEventTypes.STOP, OnSessionStopped);
+        EventManager.StopListening(SessionEventTypes.ADD_COMMENT, OnAddComment);
 	}
 
 	private void OnSessionStarted(object[] data) {
         isLogging = true;
+        comments.Clear();
 
         SetSessionID(data);
 		CreateLogFile();
@@ -36,6 +41,12 @@ public class LogManager : MonoBehaviour {
 
     private void OnSessionStopped(object[] arg0) {
         SaveLogFile();
+    }
+
+    private void OnAddComment(object[] data){
+        string text = (string)data[0];
+
+        comments.Add(GetCurrentDateAndTime(), text);
     }
 
 	private void CreateLogFile() {
@@ -70,8 +81,6 @@ public class LogManager : MonoBehaviour {
         dataString += "\t\t\"scenario\": " + sessionData.Scenario + "," + SW.NewLine;
 		dataString += "\t\t\"disability\": \"" + sessionData.Disability + "\"," + SW.NewLine;
 		dataString += "\t\t\"log_interval\": \"" + logIntervalTime + "\"," + SW.NewLine;
-		dataString += "\t\t\"websiteId\": \"" + "\"," + SW.NewLine;
-		dataString += "\t\t\"starred\": " + "," + SW.NewLine;
 		dataString += "\t}," + SW.NewLine;
 		dataString += "\t\"user_info\": [";
 
@@ -87,7 +96,7 @@ public class LogManager : MonoBehaviour {
 
 	private void GetCurrentUserDataString() {
 		string dataString = "\t\t{" + SW.NewLine;
-		dataString += "\t\t\t\"timestamp\": \"" + DateTime.Now.ToString("dd'/'MM'/'yyyy HH':'mm':'ss.fff") + "\"," + SW.NewLine;
+        dataString += "\t\t\t\"timestamp\": \"" + GetCurrentDateAndTime() + "\"," + SW.NewLine;
 		dataString += "\t\t\t\"pos\": {" + SW.NewLine;
 		dataString += "\t\t\t\t\"x\": \"" + pozyxData.x + "\"," + SW.NewLine;
 		dataString += "\t\t\t\t\"y\": \"" + pozyxData.y + "\"," + SW.NewLine;
@@ -105,6 +114,33 @@ public class LogManager : MonoBehaviour {
 		WriteLineToFile(dataString);
 	}
 
+    private void LogComments() {
+        if (comments.Count <= 0){
+            WriteLineToFile(SW.NewLine);
+            return;
+        }
+
+        WriteLineToFile("\t\"comments\": [");
+
+        foreach (KeyValuePair<string, string> comment in comments)
+            SetSessionCommentDataString(comment.Key, comment.Value);
+
+        WriteLineToFile("\t]" + SW.NewLine + "}");
+    }
+
+    private void SetSessionCommentDataString(string date, string value) {
+        string dataString = "\t\t{" + SW.NewLine;
+        dataString += "\t\t\t\"timestamp\": \"" + date + "\"," + SW.NewLine;
+        dataString += "\t\t\t\"comment\": \"" + value + "\"," + SW.NewLine;
+        dataString += "\t\t},";
+
+        WriteLineToFile(dataString);
+    }
+
+    private string GetCurrentDateAndTime(){
+        return DateTime.Now.ToString("dd'/'MM'/'yyyy HH':'mm':'ss.fff");
+    }
+
 	private void WriteLineToFile(string Line) {
 		SW.WriteLine(Line);
 		SW.Flush();
@@ -120,7 +156,14 @@ public class LogManager : MonoBehaviour {
         
         isLogging = false;
 		StopCoroutine(logUserDataCoroutine);
-		WriteLineToFile("\t]" + SW.NewLine + "}");
+
+        if (comments.Count <= 0)
+            WriteLineToFile("\t]" + SW.NewLine + "}");
+        else
+            WriteLineToFile("\t],");
+        
+        LogComments();
+
 		SW.Close();
 	}
 }

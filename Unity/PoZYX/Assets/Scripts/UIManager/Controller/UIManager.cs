@@ -18,18 +18,37 @@ namespace Feature.UI {
         [SerializeField] private TMP_InputField sessionNameInput;
         [SerializeField] private TMP_InputField sessionDisabilityInput;
         [SerializeField] private TMP_Dropdown scenarioDropDown;
+        [SerializeField] private GameObject areYouSurePanel;
+        [SerializeField] private Button areYouSureYesButton;
+        [SerializeField] private Button areYouSureNoButton;
 		[Header("Session Black Panel")]
 		[SerializeField] private float sessionBlackPanelFadeSpeed;
 		[SerializeField] private Image sessionBlackPanel;
 		[SerializeField] private float sessionBlackPanelAlpha;
+        [Header("Session Comments")]
+        [SerializeField] private TMP_InputField sessionCommentField;
+        [Header("Scenario Start")]
+        [SerializeField] private GameObject sessionStartPanel;
+        [SerializeField] private TextMeshProUGUI sessionStartText;
+        [SerializeField] private float showStartPanelTime;
 		[Header("Camera Settings")]
         [SerializeField] private Button turnCameraButton;
 		[Header("Loading Screen")]
 		[SerializeField] private Image loadingScreenPanel;
 		[SerializeField] private float loadingScreenFadeSpeed;
+        [Header("Motors Sliders")]
+        [SerializeField] private Slider intensityMinSlider;
+        [SerializeField] private Slider intensityMaxSlider;
+        [Space]
+        [SerializeField] private Toggle motorsToggle;
+        [Space]
+        [SerializeField] private Slider distanceSlider;
+        [SerializeField] private TextMeshProUGUI distanceSliderText;
 
 		private Coroutine blackPanelHideCoroutine;
 		private Coroutine blackPanelShowCoroutine;
+
+        private bool commentsAreSelected;
 
 		private void Awake() {
 			loadingScreenPanel.enabled = true;
@@ -37,7 +56,7 @@ namespace Feature.UI {
 		}
 
 		private void Start() {
-			SetupButtonListeners();
+			SetupListeners();
 
 			EventManager.StartListening(LoadingScreenEventTypes.LAUNCH_INTERFACE, OnLaunchInterfaceRequest);
 		}
@@ -50,42 +69,88 @@ namespace Feature.UI {
 			StartCoroutine(HidePanel(loadingScreenPanel, loadingScreenFadeSpeed));
 		}
 
-		private void SetupButtonListeners() {
+		private void SetupListeners() {
 			startSessionButton.onClick.AddListener(OnStartSessionClicked);
             stopSessionButton.onClick.AddListener(OnStopSessionClicked);
-			turnCameraButton.onClick.AddListener(OnTurnCameraClicked);
+            areYouSureYesButton.onClick.AddListener(OnAreYouSureYesClicked);
+            areYouSureNoButton.onClick.AddListener(OnAreYouSureNoClicked);
+            motorsToggle.onValueChanged.AddListener(OnToggleMotorsChanged);
+            //turnCameraButton.onClick.AddListener(OnTurnCameraClicked);
+
+            sessionCommentField.onSubmit.AddListener(OnSessionCommentFieldSubmitted);
+
+            intensityMinSlider.onValueChanged.AddListener(OnMinIntensitySliderChanged);
+            intensityMaxSlider.onValueChanged.AddListener(OnMaxIntensitySliderChanged);
+            distanceSlider.onValueChanged.AddListener(OnDistanceSliderChanged);
 		}
 
 		private void OnStartSessionClicked() {
-            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = false;
-            stopSessionButton.interactable = true;
-
             EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM, scenarioDropDown.value);
             EventManager.TriggerEvent(SessionEventTypes.START, sessionNameInput.text, sessionDisabilityInput.text, scenarioDropDown.options[scenarioDropDown.value].text);
 
-			if (blackPanelHideCoroutine != null)
-				StopCoroutine(blackPanelShowCoroutine);
+            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = false;
+            stopSessionButton.interactable = true;
+            sessionStartText.text = (sessionNameInput.text == "") ? sessionStartText.text : sessionNameInput.text;
 
-			blackPanelHideCoroutine = StartCoroutine(HidePanel(sessionBlackPanel, sessionBlackPanelFadeSpeed));
+            if (blackPanelHideCoroutine != null)
+                StopCoroutine(blackPanelShowCoroutine);
+
+            blackPanelHideCoroutine = StartCoroutine(HidePanel(sessionBlackPanel, sessionBlackPanelFadeSpeed));
+            StartCoroutine(ShowStartSessionPanel());
         }
 
         private void OnStopSessionClicked() {
-            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = true;
-            stopSessionButton.interactable = false;
-
-			EventManager.TriggerEvent(SessionEventTypes.STOP);
-
-			if (blackPanelHideCoroutine != null)
-				StopCoroutine(blackPanelHideCoroutine);
-
-			blackPanelShowCoroutine = StartCoroutine(ShowPanel(sessionBlackPanel, sessionBlackPanelFadeSpeed, sessionBlackPanelAlpha));
+            areYouSurePanel.SetActive(true);
         }
 
-		private void OnTurnCameraClicked() {
-			EventManager.TriggerEvent(CameraTopDown.CameraTopDownEventTypes.TURN_CAMERA);
-		}
+		//private void OnTurnCameraClicked() {
+		//	EventManager.TriggerEvent(CameraTopDown.CameraTopDownEventTypes.TURN_CAMERA);
+		//}
 
-		private IEnumerator HidePanel(Image panel, float fadeSpeed) {
+        private void OnSessionCommentFieldSubmitted(string value) {
+            if (sessionCommentField.text == "")
+                return;
+            
+            sessionCommentField.text = "";
+            EventManager.TriggerEvent(SessionEventTypes.ADD_COMMENT, value);
+        }
+
+        private void OnAreYouSureYesClicked() {
+            startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = true;
+            stopSessionButton.interactable = false;
+            areYouSurePanel.SetActive(false);
+
+            EventManager.TriggerEvent(SessionEventTypes.STOP);
+
+            if (blackPanelHideCoroutine != null)
+                StopCoroutine(blackPanelHideCoroutine);
+
+            blackPanelShowCoroutine = StartCoroutine(ShowPanel(sessionBlackPanel, sessionBlackPanelFadeSpeed, sessionBlackPanelAlpha));
+        }
+
+        private void OnAreYouSureNoClicked() {
+            areYouSurePanel.SetActive(false);
+        }
+
+        private void OnMinIntensitySliderChanged(float value) {
+            EventManager.TriggerEvent(SessionEventTypes.UPDATE_MIN_INTENSITY, (int)value);
+        }
+
+        private void OnMaxIntensitySliderChanged(float value) {
+            EventManager.TriggerEvent(SessionEventTypes.UPDATE_MAX_INTENSITY, 100 - (int)value);
+        }
+
+        private void OnDistanceSliderChanged(float value) {
+            distanceSliderText.text = value.ToString();
+
+            EventManager.TriggerEvent(SessionEventTypes.UPDATE_MAX_DISTANCE, (int)value);
+        }
+
+        private void OnToggleMotorsChanged(bool value) {
+            EventManager.TriggerEvent(Networking.NetworkingEventTypes.TOGGLE_MOTORS, value);
+        }
+
+        private IEnumerator HidePanel(Image panel, float fadeSpeed) {
 			panel.raycastTarget = false;
 
 			float fadeTime = 5f;
@@ -108,5 +173,15 @@ namespace Feature.UI {
 				yield return new WaitForEndOfFrame();
 			}
 		}
+
+        private IEnumerator ShowStartSessionPanel() {
+            sessionStartText.gameObject.SetActive(true);
+            sessionStartPanel.SetActive(true);
+
+            yield return new WaitForSeconds(showStartPanelTime);
+
+            sessionStartText.gameObject.SetActive(false);
+            sessionStartPanel.SetActive(false);
+        }
 	}
 }

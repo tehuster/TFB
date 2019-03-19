@@ -6,28 +6,30 @@ using Feature.Room;
 public class SensorDistanceIntensity : MonoBehaviour {
     [SerializeField] private Transform user;
 	[SerializeField] private FloatVariable distance;
-	[Space]
-	[Header("Motors Limitations")]
-	[SerializeField] private int maxDistance;
-	[Space]
-	[Range(0, 100)]
-    [SerializeField] private int minIntensity;
-	[Range(0, 100)]
-    [SerializeField] private int maxIntensity;
-
+	
     private List<Transform> targets = new List<Transform>();
     private Transform currentTarget;
-	private Transform oldTarget;
-	private float oldDistance = -1f;
+    private Transform oldTarget;
+    private float oldDistance = -1f;
+
+    private int maxDistance = 25;
+    private int minIntensity;
+    private int maxIntensity = 100;
 
     private void Start() {
         EventManager.StartListening(RoomEventTypes.DELETE_TARGETS, OnDeleteTargets);
         EventManager.StartListening(RoomEventTypes.NEW_TARGET, OnNewTarget);
+        EventManager.StartListening(SessionEventTypes.UPDATE_MIN_INTENSITY, OnNewMinIntensity);
+        EventManager.StartListening(SessionEventTypes.UPDATE_MAX_INTENSITY, OnNewMaxIntensity);
+        EventManager.StartListening(SessionEventTypes.UPDATE_MAX_DISTANCE, OnNewMaxDistance);
     }
 
     private void OnDestroy() {
         EventManager.StopListening(RoomEventTypes.DELETE_TARGETS, OnDeleteTargets);
         EventManager.StopListening(RoomEventTypes.NEW_TARGET, OnNewTarget);
+        EventManager.StopListening(SessionEventTypes.UPDATE_MIN_INTENSITY, OnNewMinIntensity);
+        EventManager.StopListening(SessionEventTypes.UPDATE_MAX_INTENSITY, OnNewMaxIntensity);
+        EventManager.StopListening(SessionEventTypes.UPDATE_MAX_DISTANCE, OnNewMaxDistance);
     }
 
     private void OnDeleteTargets(object[] arg0) {
@@ -37,6 +39,18 @@ public class SensorDistanceIntensity : MonoBehaviour {
 
     private void OnNewTarget(object[] data) {
         targets.Add((Transform)data[0]);
+    }
+
+    private void OnNewMinIntensity(object[] data) {
+        minIntensity = (int)data[0];
+    }
+
+    private void OnNewMaxIntensity(object[] data) {
+        maxIntensity = (int)data[0];
+    }
+
+    private void OnNewMaxDistance(object[] data) {
+        maxDistance = (int)data[0];
     }
 
     private void Update() {

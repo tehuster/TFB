@@ -51,14 +51,15 @@ namespace Feature.UI {
         private bool commentsAreSelected;
 
 		private void Awake() {
-			loadingScreenPanel.enabled = true;
+            loadingScreenPanel.gameObject.SetActive(true);
+            loadingScreenPanel.enabled = true;
 			sessionBlackPanel.enabled = true;
 		}
 
 		private void Start() {
-			SetupListeners();
+            EventManager.StartListening(LoadingScreenEventTypes.LAUNCH_INTERFACE, OnLaunchInterfaceRequest);
 
-			EventManager.StartListening(LoadingScreenEventTypes.LAUNCH_INTERFACE, OnLaunchInterfaceRequest);
+            SetupListeners();
 		}
 
 		private void OnDestroy() {
@@ -87,6 +88,7 @@ namespace Feature.UI {
 		private void OnStartSessionClicked() {
             EventManager.TriggerEvent(Room.RoomEventTypes.LOAD_ROOM, scenarioDropDown.value);
             EventManager.TriggerEvent(SessionEventTypes.START, sessionNameInput.text, sessionDisabilityInput.text, scenarioDropDown.options[scenarioDropDown.value].text);
+            EventManager.TriggerEvent(Networking.NetworkingEventTypes.TOGGLE_MOTORS, true);
 
             startSessionButton.interactable = scenarioDropDown.interactable = sessionNameInput.interactable = sessionDisabilityInput.interactable = false;
             stopSessionButton.interactable = true;
@@ -121,6 +123,7 @@ namespace Feature.UI {
             areYouSurePanel.SetActive(false);
 
             EventManager.TriggerEvent(SessionEventTypes.STOP);
+            EventManager.TriggerEvent(Networking.NetworkingEventTypes.TOGGLE_MOTORS, false);
 
             if (blackPanelHideCoroutine != null)
                 StopCoroutine(blackPanelHideCoroutine);

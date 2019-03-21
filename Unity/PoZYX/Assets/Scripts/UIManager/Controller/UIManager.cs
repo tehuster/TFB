@@ -140,7 +140,7 @@ namespace Feature.UI {
         }
 
         private void OnMaxIntensitySliderChanged(float value) {
-            EventManager.TriggerEvent(SessionEventTypes.UPDATE_MAX_INTENSITY, 100 - (int)value);
+            EventManager.TriggerEvent(SessionEventTypes.UPDATE_MAX_INTENSITY, (int)intensityMaxSlider.maxValue - (int)value);
         }
 
         private void OnDistanceSliderChanged(float value) {

@@ -21,4 +21,6 @@ MonoBehaviour:
     y: 72.69
   - x: 77.57
     y: 72.69
-  targets: []
+  targets:
+  - x: 50
+    y: 50

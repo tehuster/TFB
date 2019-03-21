@@ -63,12 +63,9 @@ public class UDPSend : MonoBehaviour {
 			sendData[0] = 255; //START BYTE
 			sendData[1] = 1;  //ADDRESS	
 			sendData[2] = 16;  //MODE
-			sendData[3] = 16;  //PACKETSIZE			
-			for (int i = 0; i < 16; i++) {
+			sendData[3] = 16;  //PACKETSIZE
+            for (int i = 0; i < motorSpeed.MotorsSpeed.Length; i++) {
 				sendData[i+4] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);
-
-				if (motorSpeed.MotorsSpeed[i] >= 256 || motorSpeed.MotorsSpeed[i] <= -1) 
-					Debug.Log("MOTOR: " + i);			
 			}
 			sendData[20] = 254;
 
@@ -81,6 +78,32 @@ public class UDPSend : MonoBehaviour {
             TurnOffBelt();
 		}
 	}
+
+    //private void SendMotorInfo(object[] arg0 = null) {
+    //    if (motorSpeed.MotorState) {
+    //        sendData[0] = 255; //START BYTE
+    //        sendData[1] = 1;  //ADDRESS 
+    //        sendData[2] = 16;  //MODE
+    //        sendData[3] = 16;  //PACKETSIZE         
+    //        for (int i = 0; i < 8; i++) {
+    //            sendData[(i * 2) + 4] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);
+    //            sendData[(i * 2) + 5] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);
+    //        }
+    //        sendData[20] = 254;
+
+    //        //Debug.Log(motorInfo);
+
+    //        try {
+    //            //byte[] data = Encoding.UTF8.GetBytes(motorInfo);
+
+    //            client.Send(sendData, sendData.Length, remoteEndPoint);
+    //        } catch (Exception err) {
+    //            print(err.ToString());
+    //        }
+    //    } else {
+    //        TurnOffBelt();
+    //    }
+    //}
 
 	private void ToggleMotors(object[] data) {
         if (data[0] == null)

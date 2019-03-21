@@ -10,4 +10,5 @@ public class MotorSpeed : ScriptableObject
 
     public int[] MotorsSpeed;
     public bool MotorState = false;
+    public float sendInterval;
 }

@@ -35,8 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# Resources folder
-Resources/
-
 # Node_module
 node_modules/

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Core;
@@ -74,14 +74,14 @@ namespace Feature.UI {
             stopSessionButton.onClick.AddListener(OnStopSessionClicked);
             areYouSureYesButton.onClick.AddListener(OnAreYouSureYesClicked);
             areYouSureNoButton.onClick.AddListener(OnAreYouSureNoClicked);
-            motorsToggle.onValueChanged.AddListener(OnToggleMotorsChanged);
             //turnCameraButton.onClick.AddListener(OnTurnCameraClicked);
 
-            sessionCommentField.onSubmit.AddListener(OnSessionCommentFieldSubmitted);
-
+            motorsToggle.onValueChanged.AddListener(OnToggleMotorsChanged);
             intensityMinSlider.onValueChanged.AddListener(OnMinIntensitySliderChanged);
             intensityMaxSlider.onValueChanged.AddListener(OnMaxIntensitySliderChanged);
             distanceSlider.onValueChanged.AddListener(OnDistanceSliderChanged);
+
+            sessionCommentField.onSubmit.AddListener(OnSessionCommentFieldSubmitted);
 		}
 
 		private void OnStartSessionClicked() {

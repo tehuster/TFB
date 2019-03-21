@@ -9,7 +9,7 @@ namespace Feature.Room {
 	/// 
 	/// TODO: huidige objects saven en vector2 van de struct.
 	/// </summary>
-	[CreateAssetMenu(fileName = "Room Data Model", menuName = "FTB/Room/New Room Data Model")]
+	[CreateAssetMenu(fileName = "New Scenario Data Model", menuName = "FTB/Scenario/New Scenario Data Model")]
 	public class RoomDataModel : ScriptableObject {
 		public Anchor[] anchors;
         public Anchor[] targets;

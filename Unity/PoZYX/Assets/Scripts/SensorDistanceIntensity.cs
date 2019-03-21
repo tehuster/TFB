@@ -14,7 +14,7 @@ public class SensorDistanceIntensity : MonoBehaviour {
 
     private int maxDistance = 25;
     private int minIntensity;
-    private int maxIntensity = 100;
+    private int maxIntensity = 255;
 
     private void Start() {
         EventManager.StartListening(RoomEventTypes.DELETE_TARGETS, OnDeleteTargets);

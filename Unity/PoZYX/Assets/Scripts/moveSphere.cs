@@ -10,6 +10,8 @@ public class moveSphere : MonoBehaviour
     public float velocityTresshold = 0f;
     public float lerpValue = 0f;
 
+    [SerializeField] private float rotationOffset;
+
 
     [SerializeField]
     private float velX;
@@ -78,7 +80,7 @@ public class moveSphere : MonoBehaviour
         newPos = new Vector3(POZYX.x, POZYX.y, POZYX.z);
 
         transform.position = Vector3.Lerp(transform.position, newPos, lerpValue * Time.deltaTime);
-        transform.eulerAngles = new Vector3(0, POZYX.yaw, 0);
+        transform.eulerAngles = new Vector3(0, POZYX.yaw + rotationOffset, 0);
 
         oldPos = transform.position;
     }

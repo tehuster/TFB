@@ -1,14 +1,14 @@
 // gebruik de serialport package
 const SerialPort = require('serialport');
 const dgram = require('dgram');
-const ip = '192.168.43.58'; // IP met .255 op einde voor multicast address.
+const ip = '192.168.43.218'; // IP met .255 op einde voor multicast address.
 const port = 8008;
 const udpServer = dgram.createSocket('udp4');
 
 //Test
 //udpServer.send('test', port, ip);
 
-let serialport = new SerialPort("/dev/tty.usbserial-DA013LCA", { baudRate : 57600}, (err) => {
+let serialport = new SerialPort("COM3", { baudRate : 57600}, (err) => {
     if(err)
     {
         console.error("Error setting up serialport", err.message);
@@ -31,7 +31,7 @@ serialport.on('data', (data) => {
             case 0x0a: // LF: Line Feed / Newline (volgens mij kan die regel hierboven weggelaten worden, kan echter andersom zijn)
                 if(incomingString != "")
                 {
-                    console.log(incomingString);
+                    //console.log(incomingString);
                     udpServer.send(incomingString,port,ip);
                     incomingString = "";
                 }
@@ -49,9 +49,9 @@ const portrx = 8006;
 //const ip = "192.168.2.182"; // luister op alle IP adressen van de machine met 0.0.0.0
 
 socket.on('message', (data) => {
-    console.log(data.toString());
-    let string = data.toString();
-    serialport.write(string);
+    console.log(data);
+    // let string = data.toString();
+    serialport.write(data);
 })
 
 socket.bind(portrx,ip);

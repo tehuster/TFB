@@ -65,15 +65,14 @@ public class UDPSend : MonoBehaviour {
 			sendData[2] = 16;  //MODE
 			sendData[3] = 16;  //PACKETSIZE			
 			for (int i = 0; i < 16; i++) {
-				sendData[i+4] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);				
+				sendData[i+4] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);
+
+				if (motorSpeed.MotorsSpeed[i] >= 256 || motorSpeed.MotorsSpeed[i] <= -1) 
+					Debug.Log("MOTOR: " + i);			
 			}
 			sendData[20] = 254;
 
-			//Debug.Log(motorInfo);
-
 			try {
-				//byte[] data = Encoding.UTF8.GetBytes(motorInfo);
-
 				client.Send(sendData, sendData.Length, remoteEndPoint);
 			} catch (Exception err) {
 				print(err.ToString());

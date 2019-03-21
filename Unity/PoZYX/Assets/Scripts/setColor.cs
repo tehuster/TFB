@@ -14,7 +14,7 @@ public class setColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        float colorIntensity = Remap(MotorSpeed.MotorsSpeed[MotorIndex], 0, 99, 0.1f , 1f);        
+        float colorIntensity = Remap(MotorSpeed.MotorsSpeed[MotorIndex], 0, 255, 0.1f , 1f);        
         Color color = new Color(colorIntensity, 0f, 0f, colorIntensity);     
         renderer.material.color = color;
     }

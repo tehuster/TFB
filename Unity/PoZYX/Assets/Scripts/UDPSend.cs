@@ -11,6 +11,7 @@ public class UDPSend : MonoBehaviour {
 
 	public MotorSpeed motorSpeed;
 	private static int localPort;
+	private byte[] sendData = new byte[21];
 	// prefs
 	//public string IP;  // define in init
 	//public int port;  // define in init
@@ -57,18 +58,23 @@ public class UDPSend : MonoBehaviour {
 		}
 	}
 
-	private void SendMotorInfo(object[] arg0 = null) {
-        if (motorSpeed.MotorState) {
-			string motorInfo = "";
-			for (int i = 0; i < 8; i++) {
-				motorInfo += motorSpeed.MotorsSpeed[i].ToString("D2");
+	private void SendMotorInfo(object[] arg0 = null) {		
+        if (motorSpeed.MotorState) {			
+			sendData[0] = 255; //START BYTE
+			sendData[1] = 1;  //ADDRESS	
+			sendData[2] = 16;  //MODE
+			sendData[3] = 16;  //PACKETSIZE			
+			for (int i = 0; i < 16; i++) {
+				sendData[i+4] = Convert.ToByte(motorSpeed.MotorsSpeed[i]);				
 			}
-			motorInfo += ";";
-			//Debug.Log(motorInfo);
-			try {
-				byte[] data = Encoding.UTF8.GetBytes(motorInfo);
+			sendData[20] = 254;
 
-				client.Send(data, data.Length, remoteEndPoint);
+			//Debug.Log(motorInfo);
+
+			try {
+				//byte[] data = Encoding.UTF8.GetBytes(motorInfo);
+
+				client.Send(sendData, sendData.Length, remoteEndPoint);
 			} catch (Exception err) {
 				print(err.ToString());
 			}

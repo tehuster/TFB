@@ -1,0 +1,183 @@
+fileFormatVersion: 2
+guid: e1b76df2ab84408429d50488bded0f37
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: hus15_v1
+    100004: hus15_v1-1
+    100006: hus15_v1-10
+    100008: hus15_v1-11
+    100010: hus15_v1-12
+    100012: hus15_v1-13
+    100014: hus15_v1-14
+    100016: hus15_v1-2
+    100018: hus15_v1-3
+    100020: hus15_v1-4
+    100022: hus15_v1-5
+    100024: hus15_v1-6
+    100026: hus15_v1-7
+    100028: hus15_v1-8
+    100030: hus15_v1-9
+    400000: //RootNode
+    400002: hus15_v1
+    400004: hus15_v1-1
+    400006: hus15_v1-10
+    400008: hus15_v1-11
+    400010: hus15_v1-12
+    400012: hus15_v1-13
+    400014: hus15_v1-14
+    400016: hus15_v1-2
+    400018: hus15_v1-3
+    400020: hus15_v1-4
+    400022: hus15_v1-5
+    400024: hus15_v1-6
+    400026: hus15_v1-7
+    400028: hus15_v1-8
+    400030: hus15_v1-9
+    2100000: hus15_v1Mat
+    2100002: hus15_v1-1Mat
+    2100004: hus15_v1-10Mat
+    2100006: hus15_v1-11Mat
+    2100008: hus15_v1-12Mat
+    2100010: hus15_v1-13Mat
+    2100012: hus15_v1-14Mat
+    2100014: hus15_v1-2Mat
+    2100016: hus15_v1-3Mat
+    2100018: hus15_v1-4Mat
+    2100020: hus15_v1-5Mat
+    2100022: hus15_v1-6Mat
+    2100024: hus15_v1-7Mat
+    2100026: hus15_v1-8Mat
+    2100028: hus15_v1-9Mat
+    2300000: hus15_v1
+    2300002: hus15_v1-1
+    2300004: hus15_v1-10
+    2300006: hus15_v1-11
+    2300008: hus15_v1-12
+    2300010: hus15_v1-13
+    2300012: hus15_v1-14
+    2300014: hus15_v1-2
+    2300016: hus15_v1-3
+    2300018: hus15_v1-4
+    2300020: hus15_v1-5
+    2300022: hus15_v1-6
+    2300024: hus15_v1-7
+    2300026: hus15_v1-8
+    2300028: hus15_v1-9
+    3300000: hus15_v1
+    3300002: hus15_v1-1
+    3300004: hus15_v1-10
+    3300006: hus15_v1-11
+    3300008: hus15_v1-12
+    3300010: hus15_v1-13
+    3300012: hus15_v1-14
+    3300014: hus15_v1-2
+    3300016: hus15_v1-3
+    3300018: hus15_v1-4
+    3300020: hus15_v1-5
+    3300022: hus15_v1-6
+    3300024: hus15_v1-7
+    3300026: hus15_v1-8
+    3300028: hus15_v1-9
+    4300000: hus15_v1
+    4300002: hus15_v1-1
+    4300004: hus15_v1-10
+    4300006: hus15_v1-11
+    4300008: hus15_v1-12
+    4300010: hus15_v1-13
+    4300012: hus15_v1-14
+    4300014: hus15_v1-2
+    4300016: hus15_v1-3
+    4300018: hus15_v1-4
+    4300020: hus15_v1-5
+    4300022: hus15_v1-6
+    4300024: hus15_v1-7
+    4300026: hus15_v1-8
+    4300028: hus15_v1-9
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
